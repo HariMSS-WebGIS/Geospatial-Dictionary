@@ -1,0 +1,18 @@
+{
+  "name": "Geospatial Dictonary",
+  "short_name": "Geo Dictonary",
+  "description": "Comprehensive dictionary of GIS and WebGIS terms with theoretical explanations, interactive SVG diagrams, references, and offline capabilities.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0f1d",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

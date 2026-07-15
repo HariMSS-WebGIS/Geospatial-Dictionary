@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geospatial Dictonary - Offline Multi-modal Interactive Guide</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="A comprehensive, offline-capable GIS and WebGIS dictionary with deep theoretical explanations, interactive vector diagrams, reference links, and online fallback lookup.">
+  <meta name="keywords" content="GIS, WebGIS, Geographical Information System, Map Server, Shapefile, GeoJSON, CRS, spatial index, PostGIS">
+  <meta name="author" content="GIS Developer Community">
+  
+  <!-- Favicons and PWA -->
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <meta name="theme-color" content="#10b981">
+  
+  <!-- Apple Touch Icon for iOS installation -->
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header>
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 512 512">
+        <!-- Re-use vector logo visual directly -->
+        <image href="./icon.svg" width="512" height="512"/>
+      </svg>
+      <div>
+        <h1>Geospatial Dictonary</h1>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <!-- Light/Dark Mode Switcher -->
+      <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Color Theme" aria-label="Toggle Color Theme">
+        <!-- Moon Icon (shows in Light Theme) -->
+        <svg class="moon-icon" viewBox="0 0 24 24">
+          <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10C2.2 6.8 6.4 2.5 11.7 2c.3 0 .6.2.7.5.1.3 0 .6-.2.8-2.3 2.1-2 5.7.5 7.5 2.2 1.6 5.2 1.2 7.1-.8.2-.2.5-.3.8-.1.3.1.4.4.4.7-.6 5.3-5 9.4-10.5 9.4z"/>
+        </svg>
+        <!-- Sun Icon (shows in Dark Theme) -->
+        <svg class="sun-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="4.22" x2="19.78" y2="5.64"/>
+        </svg>
+      </button>
+      
+      <!-- Add Term Button -->
+      <button class="btn-primary" onclick="openAddModal()" title="Add Custom Term">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+        <span>Add Term</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- App Main Content Container -->
+  <main class="app-container">
+    
+    <!-- Left Section: Search, Filters, List -->
+    <section class="search-section">
+      <!-- Search Input -->
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="text" id="search-box" class="search-input" placeholder="Search for terms, definitions or concepts..." autocomplete="off">
+        <div id="search-suggestions" class="search-suggestions" style="display: none;"></div>
+      </div>
+
+      <!-- Categories Filter bar -->
+      <div class="category-filters">
+        <button class="filter-chip active" onclick="filterCategory('all', this)">All Streams</button>
+        <button class="filter-chip" onclick="filterCategory('gis', this)">GIS</button>
+        <button class="filter-chip" onclick="filterCategory('webgis', this)">WebGIS</button>
+        <button class="filter-chip" onclick="filterCategory('remotesensing', this)">Remote Sensing</button>
+        <button class="filter-chip" onclick="filterCategory('imageprocessing', this)">Image Processing</button>
+        <button class="filter-chip" onclick="filterCategory('photogrammetry', this)">Photogrammetry</button>
+        <button class="filter-chip" onclick="filterCategory('gnss', this)">GNSS</button>
+      </div>
+
+      <!-- A-Z Alphabet Filter Navigation -->
+      <div class="alphabet-nav" id="alphabet-nav">
+        <!-- Generated Dynamically by JS -->
+      </div>
+
+      <!-- Online Google Search Quick Banner -->
+      <div id="online-search-banner" class="online-search-banner" style="display: none;">
+        <span>Not finding the term you need?</span>
+        <button class="btn-wiki-inline" onclick="searchWikipedia()" id="btn-wiki-banner-txt" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+          <svg viewBox="0 0 24 24" style="width: 12px; height: 12px; fill: currentColor; vertical-align: middle;"><path d="M12.24 10.285V13.4h6.887c-.648 2.41-2.519 4.125-5.137 4.125-3.328 0-6.033-2.705-6.033-6.033s2.705-6.033 6.033-6.033c1.492 0 2.859.544 3.916 1.442l2.368-2.368C18.17 2.735 15.22 1.76 12.25 1.76c-5.52 0-10 4.48-10 10s4.48 10 10 10c5.77 0 9.6-4.06 9.6-9.76 0-.66-.06-1.29-.17-1.9H12.24z"/></svg>
+          Search Google
+        </button>
+      </div>
+
+      <!-- Grid list of terms -->
+      <div class="terms-grid" id="terms-grid">
+        <!-- Rendered Dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- Right Section: Details Panel (Drawer) -->
+    <aside class="detail-panel collapsed" id="detail-panel" aria-label="Term Details Panel">
+      <div class="detail-header">
+        <div class="detail-title-group">
+          <h2 id="detail-title">Term Title</h2>
+          <div class="detail-meta">
+            <span id="detail-category-badge" class="term-badge">Category</span>
+            <div id="detail-synonyms" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic; display: none;"></div>
+            <div id="detail-author" style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; display: none;"></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <!-- Text-to-Speech Toggle -->
+          <button class="speech-btn" id="btn-speech" onclick="toggleSpeech()" title="Read definition aloud" aria-label="Read definition aloud">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+          </button>
+          <!-- Close Drawer Button -->
+          <button class="close-btn" onclick="closeDetailPanel()" title="Close Details Drawer" aria-label="Close Details Drawer">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="detail-content">
+        <!-- Core definition -->
+        <div class="detail-section">
+          <div class="detail-section-title">Definition</div>
+          <p id="detail-definition" class="detail-def">Detailed single sentence dictionary definition.</p>
+        </div>
+
+        <!-- Graphic Diagram Visual -->
+        <div class="detail-section">
+          <div class="detail-section-title">Visual Representation</div>
+          <div class="detail-diagram-container">
+            <div id="detail-diagram">
+              <!-- Inline SVG graphic rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed explanation -->
+        <div class="detail-section">
+          <div class="detail-section-title">Theoretical Explanation</div>
+          <p id="detail-explanation" class="detail-explanation">Extended article and usage details explaining the GIS concept.</p>
+        </div>
+
+        <!-- References and Links -->
+        <div class="detail-section">
+          <div class="detail-section-title">Curated References & Guides</div>
+          <ul class="reference-list" id="detail-references">
+            <!-- Rendered Dynamically -->
+          </ul>
+        </div>
+
+        <!-- Related concepts tags -->
+        <div class="detail-section">
+          <div class="detail-section-title">Related Concepts</div>
+          <div class="related-list" id="detail-related-terms">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Bottom Sync Actions (Offline Backup) -->
+  <footer class="sync-section">
+    <div>
+      <span>GIS & WebGIS Dictionary App. Data is saved locally in browser storage.</span>
+    </div>
+    <div class="sync-actions">
+      <!-- Hidden File Selector for Import -->
+      <input type="file" id="import-file-input" style="display: none;" accept=".json" onchange="importData(event)">
+      <button class="sync-btn" onclick="document.getElementById('import-file-input').click()" title="Import terms from a JSON backup file">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        Import Backup (JSON)
+      </button>
+      <button class="sync-btn" onclick="exportData()" title="Export custom terms database as JSON">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Export Dictionary (JSON)
+      </button>
+    </div>
+  </footer>
+
+  <!-- CRUD Modal Form: Add / Edit Term -->
+  <div class="modal-overlay" id="term-modal">
+    <div class="modal-container" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="modal-title">Add New Term</h3>
+        <button class="close-btn" onclick="closeModal()" title="Close Form" aria-label="Close Form">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="term-form" onsubmit="handleFormSubmit(event)">
+        <!-- Hidden ID tracker for editing -->
+        <input type="hidden" id="form-term-id" value="">
+        
+        <div class="modal-body">
+          <!-- Title & Category Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                <label for="form-term-title" style="margin: 0;">Term Title *</label>
+                <button type="button" id="btn-modal-autofill" onclick="triggerModalAutoFill()" class="btn-secondary" style="padding: 0.15rem 0.5rem; font-size: 0.75rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 0.25rem; font-weight: 700; cursor: pointer; background: rgba(59,130,246,0.15); border: 1px solid var(--accent-blue); color: var(--accent-blue); margin: 0;">
+                  <svg viewBox="0 0 24 24" style="width: 12px; height: 12px; fill: currentColor; vertical-align: middle;"><path d="M12.24 10.285V13.4h6.887c-.648 2.41-2.519 4.125-5.137 4.125-3.328 0-6.033-2.705-6.033-6.033s2.705-6.033 6.033-6.033c1.492 0 2.859.544 3.916 1.442l2.368-2.368C16.803 2.735 14.653 1.76 12.25 1.76c-5.52 0-10 4.48-10 10s4.48 10 10 10c5.77 0 9.6-4.06 9.6-9.76 0-.66-.06-1.29-.17-1.9H12.24z"/></svg>
+                  Auto-Fill from Google
+                </button>
+              </div>
+              <div style="position: relative; width: 100%;">
+                <input type="text" id="form-term-title" class="form-control" placeholder="e.g. Map Projection" required autocomplete="off">
+                <div id="modal-term-suggestions" class="search-suggestions" style="display: none; width: 100%; top: 100%;"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-term-category">Geospatial Stream *</label>
+              <select id="form-term-category" class="form-control" required>
+                <option value="gis">GIS</option>
+                <option value="webgis">WebGIS</option>
+                <option value="remotesensing">Remote Sensing</option>
+                <option value="imageprocessing">Image Processing</option>
+                <option value="photogrammetry">Photogrammetry</option>
+                <option value="gnss">GNSS</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Synonyms / Aliases -->
+          <div class="form-group">
+            <label for="form-term-synonyms">Synonyms / Aliases (Optional)</label>
+            <input type="text" id="form-term-synonyms" class="form-control" placeholder="e.g. World Geodetic System, WGS84, GDA94 (comma separated)">
+          </div>
+
+          <!-- Definition -->
+          <div class="form-group">
+            <label for="form-term-def">Core Definition *</label>
+            <input type="text" id="form-term-def" class="form-control" placeholder="Brief single-sentence definition for quick search summaries..." required>
+          </div>
+
+          <!-- Detailed Explanation -->
+          <div class="form-group">
+            <label for="form-term-exp">Detailed Explanation (Theoretical)</label>
+            <textarea id="form-term-exp" class="form-control" placeholder="Write a thorough theoretical explanation of how this spatial concept works, how it is implemented, and standard use cases..." rows="4"></textarea>
+          </div>
+
+          <!-- Image Upload / Vector Graphic -->
+          <div class="form-group">
+            <label for="form-term-image">Upload Illustration (Optional Image)</label>
+            <input type="file" id="form-term-image" class="form-control" accept="image/*">
+            <small style="color: var(--text-muted); font-size: 0.75rem;">Supports JPG, PNG, WEBP, or SVG files. Will be saved offline in local storage.</small>
+          </div>
+
+          <!-- References Textarea -->
+          <div class="form-group">
+            <label for="form-term-ref">Curated References & Links (Optional)</label>
+            <textarea id="form-term-ref" class="form-control" placeholder="Format: Title | URL (one per line)&#10;e.g. Esri Help | https://example.com/guide" rows="2"></textarea>
+          </div>
+
+          <!-- Related Terms -->
+          <div class="form-group">
+            <label for="form-term-rel">Related Terms (Optional)</label>
+            <input type="text" id="form-term-rel" class="form-control" placeholder="e.g. Raster Data, GIS, CRS (comma separated)">
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Term</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Alert System -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JS Code File -->
+  <script src="./app.js"></script>
+</body>
+</html>
