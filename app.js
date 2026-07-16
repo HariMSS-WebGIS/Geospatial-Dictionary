@@ -3164,12 +3164,17 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle User Manual click (Opens the new User Guide Manual)
+  // Handle User Manual click (Downloads the User Guide Manual)
   if (manualMenuItem) {
     manualMenuItem.addEventListener('click', (e) => {
       e.stopPropagation();
       if (downloadMenu) downloadMenu.style.display = 'none';
-      window.open('./users_guide_manual.md', '_blank');
+      const link = document.createElement('a');
+      link.href = './users_guide_manual.md';
+      link.download = 'users_guide_manual.md';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     });
   }
 
