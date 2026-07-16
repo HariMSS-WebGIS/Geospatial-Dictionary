@@ -57,13 +57,32 @@
         </svg>
       </button>
       
-      <!-- Install App Button (Visible only when PWA is installable) -->
-      <button class="btn-secondary" id="btn-install-pwa" style="display: none; align-items: center; gap: 0.35rem; border-color: var(--accent-emerald); color: var(--accent-emerald); margin-right: 0.5rem;">
-        <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;">
-          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
-        </svg>
-        <span>Install App</span>
-      </button>
+      <!-- Download Dropdown (Grouped App Download & User Manual) -->
+      <div class="dropdown-wrapper" style="margin-right: 0.5rem;">
+        <button class="btn-secondary dropdown-trigger" id="btn-download-dropdown" style="gap: 0.35rem; align-items: center; display: inline-flex;">
+          <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+          </svg>
+          <span>Download</span>
+          <svg viewBox="0 0 24 24" style="width: 10px; height: 10px; fill: currentColor; margin-left: 2px;">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+        <div class="dropdown-menu" id="download-menu" style="display: none;">
+          <button class="dropdown-item" id="menu-install-pwa" style="display: none;">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor; margin-right: 8px; vertical-align: middle;">
+              <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+            </svg>
+            Download App
+          </button>
+          <button class="dropdown-item" id="menu-user-manual">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor; margin-right: 8px; vertical-align: middle;">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/>
+            </svg>
+            User Manual
+          </button>
+        </div>
+      </div>
 
       <!-- Admin Panel Button (Visible to admin only) -->
       <button class="btn-secondary" id="btn-admin-panel" onclick="openAdminPanel()" style="display: none; border-color: var(--accent-cyan); color: var(--accent-cyan); margin-right: 0.5rem; gap: 0.35rem; align-items: center;">

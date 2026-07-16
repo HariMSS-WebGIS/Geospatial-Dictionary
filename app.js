@@ -3024,6 +3024,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (modalSug && e.target !== mTitleInput && !modalSug.contains(e.target)) {
       modalSug.style.display = 'none';
     }
+    const dMenu = document.getElementById('download-menu');
+    const dTrigger = document.getElementById('btn-download-dropdown');
+    if (dMenu && dTrigger && e.target !== dTrigger && !dTrigger.contains(e.target) && !dMenu.contains(e.target)) {
+      dMenu.style.display = 'none';
+    }
   });
 
   // Automatically trigger Google auto-fill and show local autocomplete recommendations inside the modal form!
@@ -3114,32 +3119,57 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (adminBtn) adminBtn.style.display = 'inline-flex';
   }
 
-  // Handle PWA installation prompt inside UI
+  // Handle PWA installation and dropdown triggers inside UI
   let deferredPrompt = null;
-  const installBtn = document.getElementById('btn-install-pwa');
+  const downloadTrigger = document.getElementById('btn-download-dropdown');
+  const downloadMenu = document.getElementById('download-menu');
+  const installMenuItem = document.getElementById('menu-install-pwa');
+  const manualMenuItem = document.getElementById('menu-user-manual');
 
+  // Toggle dropdown on trigger click
+  if (downloadTrigger && downloadMenu) {
+    downloadTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = downloadMenu.style.display === 'block';
+      downloadMenu.style.display = isVisible ? 'none' : 'block';
+    });
+  }
+
+  // Intercept beforeinstallprompt to show/hide "Download App" menu option
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    if (installBtn) {
-      installBtn.style.display = 'inline-flex';
+    if (installMenuItem) {
+      installMenuItem.style.display = 'flex';
     }
   });
 
-  if (installBtn) {
-    installBtn.addEventListener('click', async () => {
+  // Handle Download App click
+  if (installMenuItem) {
+    installMenuItem.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if (downloadMenu) downloadMenu.style.display = 'none';
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       console.log(`User response to PWA install prompt: ${outcome}`);
       deferredPrompt = null;
-      installBtn.style.display = 'none';
+      installMenuItem.style.display = 'none';
+    });
+  }
+
+  // Handle User Manual click (Toast alert for now)
+  if (manualMenuItem) {
+    manualMenuItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (downloadMenu) downloadMenu.style.display = 'none';
+      showToast('User Manual coming soon!', 'info');
     });
   }
 
   window.addEventListener('appinstalled', () => {
     console.log('PWA installed successfully.');
-    if (installBtn) installBtn.style.display = 'none';
+    if (installMenuItem) installMenuItem.style.display = 'none';
   });
 
   // Close modals clicking outside container
