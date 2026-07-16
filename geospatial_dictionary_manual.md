@@ -106,28 +106,58 @@
 
   <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">2. Custom Install UI Dropdown (<code style="color: #22d3ee;">index.html</code> & <code style="color: #22d3ee;">app.js</code>)</h3>
   <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Download dropdown wrapper:</strong> Created a header button (<code>#btn-download-dropdown</code>) toggle trigger expanding a options panel (Download App, User Manual).</li>
+    <li><strong style="color: #f8fafc;">Download dropdown wrapper:</strong> Created a header button (<code>#btn-download-dropdown</code>) toggle trigger expanding an options panel (Download App, User Manual).</li>
   </ul>
 
   <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">3. Custom Installation Guide Modal (<code style="color: #22d3ee;">index.html</code> & <code style="color: #22d3ee;">app.js</code>)</h3>
   <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Visual Help Modal:</strong> Created <code>#install-guide-modal</code> containing SVG graphic mockups showing:
-      <ul style="margin-top: 4px; padding-left: 20px;">
-        <li><strong style="color: #38bdf8;">Method A:</strong> Chrome desktop address bar install monitor icon location.</li>
-        <li><strong style="color: #34d399;">Method B:</strong> Chrome mobile settings menu 3-dots panel.</li>
-        <li><strong style="color: #fb923c;">Method C:</strong> iOS Safari share sheet and "Add to Home Screen" option.</li>
-      </ul>
-    </li>
-    <li><strong style="color: #f8fafc;">Dynamic trigger redirection:</strong> Set up click listeners on "Download App" to launch the browser's native install dialog if the stashed prompt is active, or automatically open the visual help modal if it's inactive/unsupported.</li>
-    <li><strong style="color: #f8fafc;">Platform compatibility badges:</strong> Added high-contrast badges to headers:
-      <ul style="margin-top: 4px; padding-left: 20px;">
-        <li>Method A: <span style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">Desktop Only</span></li>
-        <li>Method B: <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">Android Chrome</span></li>
-        <li>Method C: <span style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">iOS / iPhone Only</span></li>
-      </ul>
-    </li>
-    <li><strong style="color: #f8fafc;">PWA vs. Shortcut comparison panel:</strong> Embedded a white highlighted guide panel comparing App Installations vs. Web Shortcuts.</li>
-    <li><strong style="color: #f8fafc;">Embedded uninstall instructions:</strong> Added a red help box detailing how to delete shortcuts (hold and select **Remove**) vs uninstalling PWA apps (hold and select **Uninstall**).</li>
+    <li><strong style="color: #f8fafc;">Visual Help Modal Structure:</strong> Created <code>#install-guide-modal</code> containing SVG graphic mockups and guides.</li>
   </ul>
+
+  <!-- Visual popup details matching website layout -->
+  <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px;">
+    <h4 style="color: #cbd5e1; font-size: 1.05rem; margin-top: 0; margin-bottom: 12px; font-weight: 600; text-decoration: underline;">Visual Popup Content Specifications:</h4>
+    
+    <div style="text-align: center; margin-bottom: 15px;">
+      <img src="./install_popup_guide.png" alt="Installation Guide Popup" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #475569;" />
+    </div>
+
+    <ul style="color: #cbd5e1; font-size: 0.9rem; padding-left: 20px;">
+      <li style="margin-bottom: 8px;"><strong>Method A (Desktop Installation):</strong>
+        <ul style="padding-left: 20px; margin-top: 4px;">
+          <li>1. Click the Install Monitor icon on the right side of the address bar.</li>
+          <li>2. Or click the three dots (⋮) ➔ Cast, save, and share ➔ Install Geospatial Dictionary...</li>
+        </ul>
+      </li>
+      <li style="margin-bottom: 8px;"><strong>Method B (Mobile Android Menu):</strong>
+        <ul style="padding-left: 20px; margin-top: 4px;">
+          <li>Mobile address bars do not show install icons. Tap the three vertical dots (⋮) in Chrome, select Install (or Install and create shortcut), then select Install.</li>
+        </ul>
+      </li>
+      <li style="margin-bottom: 8px;"><strong>Method C (iPhone iOS Safari):</strong>
+        <ul style="padding-left: 20px; margin-top: 4px;">
+          <li>Open Safari, tap the Share sheet button (box with up arrow), and select Add to Home Screen.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- App Install vs Web Shortcut Comparison -->
+    <div style="border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px; background: rgba(255, 255, 255, 0.04); margin-top: 15px; margin-bottom: 15px;">
+      <strong style="color: #ffffff; display: block; margin-bottom: 6px; font-size: 0.9rem;">App Install vs. Web Shortcut Rules:</strong>
+      <ul style="margin: 0; padding-left: 20px; color: #cbd5e1; font-size: 0.85rem;">
+        <li style="margin-bottom: 4px;"><strong>Install (App):</strong> Downloads PWA files directly. Opens in its own window (no tabs) and works offline. To delete, press and hold and select Uninstall.</li>
+        <li><strong>Create Shortcut:</strong> Places a link on your screen. Accesses the site without installing files. To delete, press and hold and select Remove.</li>
+      </ul>
+    </div>
+
+    <!-- How to Remove or Uninstall -->
+    <div style="border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 12px; background: rgba(239, 68, 68, 0.02); margin-top: 10px;">
+      <strong style="color: #ef4444; display: block; margin-bottom: 6px; font-size: 0.9rem;">How to Remove or Uninstall from Phone Rules:</strong>
+      <ul style="margin: 0; padding-left: 20px; color: #fca5a5; font-size: 0.85rem;">
+        <li style="margin-bottom: 4px;"><strong>If you chose 'Install':</strong> Press and hold the icon on your home screen and select Uninstall.</li>
+        <li><strong>If you chose 'Create shortcut':</strong> Press and hold the icon and select Remove (or drag to the 'Remove' trash can at the top).</li>
+      </ul>
+    </div>
+  </div>
 
 </div>
