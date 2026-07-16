@@ -1,11 +1,13 @@
-const CACHE_NAME = 'gis-webgis-dict-v22';
+const CACHE_NAME = 'gis-webgis-dict-v23';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 // Install Event - Pre-cache essential files
