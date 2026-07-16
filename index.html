@@ -419,7 +419,7 @@
             <span>Mobile (Android) Menu</span>
             <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-left: auto;">Android Chrome</span>
           </h4>
-          <div style="display: flex; gap: 1rem; align-items: center;">
+          <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
             <div style="flex: 1; font-size: 0.8rem; color: var(--text-muted); line-height: 1.45;">
               Mobile address bars do not show install icons. Tap the <strong>three vertical dots (⋮)</strong> in Chrome, select <strong>Install</strong> (or <strong>Install and create shortcut</strong>), then select <strong>Install</strong> (do not choose 'Create shortcut').
             </div>
@@ -437,37 +437,37 @@
               </svg>
             </div>
           </div>
-        </div>
 
-        <!-- PWA vs Shortcut Comparison (Highlighted in White) -->
-        <div style="border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 1rem; background: rgba(255, 255, 255, 0.04); color: #ffffff; margin-top: 0.25rem;">
-          <h4 style="color: #ffffff; font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem; font-weight: bold;">
-            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: #ffffff; margin-right: 4px; display: inline-block; vertical-align: middle;">
-              <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2V7h-2v2z"/>
-            </svg>
-            <span>App Install vs. Web Shortcut</span>
-          </h4>
-          <div style="font-size: 0.8rem; line-height: 1.5; color: #ffffff;">
-            When installing on mobile, you can choose between two methods:
-            <ul style="margin-left: 1.25rem; margin-top: 0.35rem; margin-bottom: 0.35rem; list-style-type: disc; color: #ffffff;">
-              <li style="color: #ffffff;"><strong style="color: #ffffff;">Install (App):</strong> Downloads the PWA files directly. It lets you open the dictionary in its own clean window (no browser tabs) and works fully offline. To delete it, press and hold the icon and select <strong>Uninstall</strong>.</li>
-              <li style="color: #ffffff;"><strong style="color: #ffffff;">Create Shortcut:</strong> Places a browser link on your home screen. This lets you access the PWA quickly <strong>without installing any files</strong> on your phone. To delete it, press and hold the icon and select <strong>Remove</strong>.</li>
-            </ul>
+          <!-- PWA vs Shortcut Comparison (Highlighted in White) -->
+          <div style="border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.04); color: #ffffff; margin-top: 0.75rem;">
+            <h5 style="color: #ffffff; font-size: 0.8rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem; font-weight: bold;">
+              <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #ffffff; margin-right: 2px; display: inline-block; vertical-align: middle;">
+                <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2V7h-2v2z"/>
+              </svg>
+              <span>App Install vs. Web Shortcut</span>
+            </h5>
+            <div style="font-size: 0.75rem; line-height: 1.45; color: #ffffff;">
+              When installing on mobile, you can choose between two methods:
+              <ul style="margin-left: 1rem; margin-top: 0.25rem; margin-bottom: 0.25rem; list-style-type: disc; color: #ffffff;">
+                <li style="color: #ffffff;"><strong style="color: #ffffff;">Install (App):</strong> Downloads the PWA files directly. It lets you open the dictionary in its own clean window (no browser tabs) and works fully offline. To delete it, press and hold the icon and select <strong>Uninstall</strong>.</li>
+                <li style="color: #ffffff;"><strong style="color: #ffffff;">Create Shortcut:</strong> Places a browser link on your home screen. This lets you access the PWA quickly <strong>without installing any files</strong> on your phone. To delete it, press and hold the icon and select <strong>Remove</strong>.</li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <!-- How to Remove / Uninstall from Phone -->
-        <div style="border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 1rem; background: rgba(239, 68, 68, 0.02); margin-top: 0.5rem; margin-bottom: 0.5rem;">
-          <h4 style="color: #ef4444; font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem; font-weight: bold;">
-            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: #ef4444; margin-right: 4px; display: inline-block; vertical-align: middle;">
-              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-            </svg>
-            <span>How to Remove or Uninstall</span>
-          </h4>
-          <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.45;">
-            If you ever want to delete the icon from your phone: <br>
-            &bull; <strong>If you chose 'Install':</strong> Press and hold the icon on your home screen and select <strong>Uninstall</strong>. <br>
-            &bull; <strong>If you chose 'Create shortcut':</strong> Press and hold the icon on your home screen and select <strong>Remove</strong> (or drag it to the 'Remove' trash can at the top).
+          <!-- How to Remove / Uninstall from Phone -->
+          <div style="border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 0.75rem 1rem; background: rgba(239, 68, 68, 0.02); margin-top: 0.5rem; margin-bottom: 0.5rem;">
+            <h5 style="color: #ef4444; font-size: 0.8rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem; font-weight: bold;">
+              <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: #ef4444; margin-right: 2px; display: inline-block; vertical-align: middle;">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+              </svg>
+              <span>How to Remove or Uninstall</span>
+            </h5>
+            <div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+              If you ever want to delete the icon from your phone: <br>
+              &bull; <strong>If you chose 'Install':</strong> Press and hold the icon on your home screen and select <strong>Uninstall</strong>. <br>
+              &bull; <strong>If you chose 'Create shortcut':</strong> Press and hold the icon on your home screen and select <strong>Remove</strong> (or drag it to the 'Remove' trash can at the top).
+            </div>
           </div>
         </div>
 
