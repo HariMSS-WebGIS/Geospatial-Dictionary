@@ -3164,12 +3164,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle User Manual click (Toast alert for now)
+  // Handle User Manual click (Opens the new User Guide Manual)
   if (manualMenuItem) {
     manualMenuItem.addEventListener('click', (e) => {
       e.stopPropagation();
       if (downloadMenu) downloadMenu.style.display = 'none';
-      showToast('User Manual coming soon!', 'info');
+      window.open('./users_guide_manual.md', '_blank');
     });
   }
 
