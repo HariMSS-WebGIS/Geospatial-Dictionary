@@ -1,163 +1,108 @@
-<div style="font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif; color: #f8fafc; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 10px;">
+# 🛠️ Geospatial Dictionary: Technical Implementation History & Changelog
 
-  <h1 style="color: #06b6d4; font-family: 'Outfit', sans-serif; font-size: 2rem; border-bottom: 2px solid #06b6d4; padding-bottom: 8px; margin-bottom: 12px; font-weight: 800;">🛠️ Geospatial Dictionary: Technical Implementation History & Changelog</h1>
+This document provides a technical record of all development tasks, code changes, and feature enhancements completed for the Geospatial Dictionary project. It is structured chronologically by system component for technical reference.
 
-  <p style="font-size: 1.05rem; color: #cbd5e1; margin-bottom: 20px;">
-    This document provides a technical record of all development tasks, code changes, and feature enhancements completed for the Geospatial Dictionary project. It is structured chronologically by system component for technical reference.
-  </p>
+---
 
-  <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+## 🔗 Quick Developer Reference Links
 
-  <!-- Quick Developer Links Box -->
-  <div style="border: 1px solid #10b981; border-radius: 12px; padding: 16px; background: rgba(16, 185, 129, 0.04); margin-bottom: 20px;">
-    <h3 style="color: #10b981; font-size: 1.1rem; margin-top: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-weight: bold;">
-      <span>🔗 Quick Developer Reference Links</span>
-    </h3>
-    <ul style="margin: 0; padding-left: 20px; color: #a7f3d0; font-size: 0.95rem;">
-      <li><strong>Live Production Site:</strong> <a href="https://harimss-webgis.github.io/Geospatial-Dictionary/" style="color: #34d399; font-weight: bold; text-decoration: underline;">https://harimss-webgis.github.io/Geospatial-Dictionary/</a></li>
-      <li style="margin-top: 6px;"><strong>Admin Moderation Access:</strong> <a href="https://harimss-webgis.github.io/Geospatial-Dictionary/?admin=true" style="color: #34d399; font-weight: bold; text-decoration: underline;">https://harimss-webgis.github.io/Geospatial-Dictionary/?admin=true</a></li>
-    </ul>
-  </div>
+> [!NOTE]
+> * **Live Production Site**: [https://harimss-webgis.github.io/Geospatial-Dictionary/](https://harimss-webgis.github.io/Geospatial-Dictionary/)
+> * **Admin Moderation Access**: [https://harimss-webgis.github.io/Geospatial-Dictionary/?admin=true](https://harimss-webgis.github.io/Geospatial-Dictionary/?admin=true)
 
-  <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+---
 
-  <!-- Part 1 -->
-  <h2 style="color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-top: 24px; margin-bottom: 12px; font-weight: 700; border-left: 4px solid #38bdf8; padding-left: 10px;">Part 1: Website Frontend & User Interface Development</h2>
-  
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">1. Modern Responsive UI & Style System (<code style="color: #22d3ee;">style.css</code> & <code style="color: #22d3ee;">index.html</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Design tokens:</strong> Established CSS variables for dark/light themes, including background grids, panel blurs (<code>backdrop-filter</code>), typography (Outfit/Inter), transitions, and accent states (Emerald green and Cyan blue).</li>
-    <li><strong style="color: #f8fafc;">Grid Layouts:</strong> Implemented fluid grids with CSS Flexbox and Grid to handle mobile-first responsiveness.</li>
-    <li><strong style="color: #f8fafc;">Scroll Lock fixes:</strong> Adjusted form containers to act as vertical flex containers (<code>flex: 1; overflow: hidden;</code>), pinning the "Cancel" and "Save" buttons at the bottom of the modal viewport while keeping input fields scrollable on small mobile screens.</li>
-  </ul>
+## Part 1: Website Frontend & User Interface Development
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">2. Search Engine & Autocomplete Logic (<code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Parallel Search:</strong> Built query functions to search term titles, definition texts, and alias arrays concurrently.</li>
-    <li><strong style="color: #f8fafc;">Autocomplete recommendation dropdown:</strong> Attached key listeners (<code>ArrowUp</code>/<code>ArrowDown</code>/<code>Enter</code>) and click observers to navigate recommendations without keyboard conflicts.</li>
-    <li><strong style="color: #f8fafc;">Outside-click close handler:</strong> Added window listeners to automatically hide autocomplete recommendations and header dropdown menus when clicking elsewhere.</li>
-  </ul>
+### 1. Modern Responsive UI & Style System (`style.css` & `index.html`)
+* **Design tokens**: Established CSS variables for dark/light themes, including background grids, panel blurs (`backdrop-filter`), typography (Outfit/Inter), transitions, and accent states (Emerald green and Cyan blue).
+* **Grid Layouts**: Implemented fluid grids with CSS Flexbox and Grid to handle mobile-first responsiveness.
+* **Scroll Lock fixes**: Adjusted form containers to act as vertical flex containers (`flex: 1; overflow: hidden;`), pinning the "Cancel" and "Save" buttons at the bottom of the modal viewport while keeping input fields scrollable on small mobile screens.
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">3. Wikipedia API Live Sync & Autofill (<code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Live fetch:</strong> Configured fetch logic using JSONP/CORS to query Wikipedia descriptions on term title input.</li>
-    <li><strong style="color: #f8fafc;">Debouncing & Blur Events:</strong> Bound an input listener with a 1000ms delay timer and a blur event handler to auto-populate fields only when typing stops or focuses out.</li>
-    <li><strong style="color: #f8fafc;">Auto-Classification Rules:</strong> Wrote auto-tagging logic inside imports to parse descriptions and automatically classify imported terms into category streams (e.g. classifying GPS, Galileo, and RTK as "GNSS").</li>
-  </ul>
+### 2. Search Engine & Autocomplete Logic (`app.js`)
+* **Parallel Search**: Built query functions to search term titles, definition texts, and alias arrays concurrently.
+* **Autocomplete recommendation dropdown**: Attached key listeners (`ArrowUp`/`ArrowDown`/`Enter`) and click observers to navigate recommendations without keyboard conflicts.
+* **Outside-click close handler**: Added window listeners to automatically hide autocomplete recommendations and header dropdown menus when clicking elsewhere.
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">4. Interactive Vector Diagram System (<code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li>Populated terms with responsive inline SVG diagrams, including:
-      <ul style="padding-left: 20px; margin-top: 4px;">
-        <li><strong style="color: #38bdf8;">Trilateration:</strong> Highlighting satellite distance spheres intersecting to compute coordinates.</li>
-        <li><strong style="color: #38bdf8;">Multipath Errors:</strong> Diagram showing signals reflecting off structures before reaching a GPS antenna.</li>
-        <li><strong style="color: #38bdf8;">RTK (Real-Time Kinematic):</strong> Showing the base station rover correction transmission cycle.</li>
-      </ul>
-    </li>
-  </ul>
+### 3. Wikipedia API Live Sync & Autofill (`app.js`)
+* **Live fetch**: Configured fetch logic using JSONP/CORS to query Wikipedia descriptions on term title input.
+* **Debouncing & Blur Events**: Bound an input listener with a 1000ms delay timer and a blur event handler to auto-populate fields only when typing stops or focuses out.
+* **Auto-Classification Rules**: Wrote auto-tagging logic inside imports to parse descriptions and automatically classify imported terms into category streams (e.g. classifying GPS, Galileo, and RTK as "GNSS").
 
-  <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+### 4. Interactive Vector Diagram System (`app.js`)
+* Populated terms with responsive inline SVG diagrams, including:
+  * **Trilateration**: Highlighting satellite distance spheres intersecting to compute coordinates.
+  * **Multipath Errors**: Diagram showing signals reflecting off structures before reaching a GPS antenna.
+  * **RTK (Real-Time Kinematic)**: Showing the base station rover correction transmission cycle.
 
-  <!-- Part 2 -->
-  <h2 style="color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-top: 24px; margin-bottom: 12px; font-weight: 700; border-left: 4px solid #38bdf8; padding-left: 10px;">Part 2: Database Sync, Contributor Metadata & Admin Moderation</h2>
+---
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">1. Firebase Synchronization Setup (<code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Firebase Realtime Database Endpoint:</strong> Linked application logic to <code style="color: #a7f3d0; background: rgba(0,0,0,0.2); padding: 2px 4px; border-radius: 4px;">https://geospatialdictonary-default-rtdb.firebaseio.com/</code> (noting the spelling constraint of the database node).</li>
-    <li><strong style="color: #f8fafc;">Offline fallback caching:</strong> Integrated localStorage sync to load pre-cached data instantly if connection fails.</li>
-  </ul>
+## Part 2: Database Sync, Contributor Metadata & Admin Moderation
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">2. Contributor Metadata & Badges (<code style="color: #22d3ee;">app.js</code> & <code style="color: #22d3ee;">style.css</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">CreatedBy Parameter:</strong> Embedded creator data fields (<code>createdBy: "admin" | "guest"</code>, <code>createdAt: timestamp</code>) into the database schema.</li>
-    <li><strong style="color: #f8fafc;">Color Badging:</strong> Added blue badges for **Admin Custom** terms and orange badges for **Guest Contribution** terms in both card lists and drawers.</li>
-  </ul>
+### 1. Firebase Synchronization Setup (`app.js`)
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">3. Lockdown Deletions (Secure Admin Mode) (<code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Admin Verification:</strong> Configured a query parser (<code>?admin=true</code>) to enable administrator features.</li>
-    <li><strong style="color: #f8fafc;">Lock Deletes:</strong> Restricted deletion database calls (<code>deleteTerm()</code>) and hid deletion trash cans from cards unless the user is confirmed as admin.</li>
-  </ul>
+> [!NOTE]
+> * **Firebase Realtime Database Endpoint**: Linked application logic to `https://geospatialdictonary-default-rtdb.firebaseio.com/` (noting the spelling constraint of the database node).
+> * **Offline fallback caching**: Integrated localStorage sync to load pre-cached data instantly if connection fails.
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">4. Cron-styled Submissions Moderation Panel (<code style="color: #22d3ee;">index.html</code> & <code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Admin Dashboard modal:</strong> Added a moderation panel overlay (<code>#admin-modal</code>) and header link button (<code>#btn-admin-panel</code>) visible only to administrators.</li>
-    <li><strong style="color: #f8fafc;">Chronological grouping logic:</strong> Developed sorting filters grouping contributions into:
-      <ul style="margin-top: 4px; padding-left: 20px;">
-        <li>🔴 <strong style="color: #ef4444;">Added Today</strong></li>
-        <li>🟡 <strong style="color: #eab308;">Added This Week (Last 7 Days)</strong></li>
-        <li>🔵 <strong style="color: #3b82f6;">Added Earlier</strong></li>
-      </ul>
-    </li>
-    <li><strong style="color: #f8fafc;">Panel Actions:</strong> Linked "View" (opens term detail drawer) and "Delete" (purges the term instantly from Firebase) buttons next to each submission row.</li>
-  </ul>
+### 2. Contributor Metadata & Badges (`app.js` & `style.css`)
+* **CreatedBy Parameter**: Embedded creator data fields (`createdBy: "admin" | "guest"`, `createdAt: timestamp`) into the database schema.
+* **Color Badging**: Added blue badges for **Admin Custom** terms and orange badges for **Guest Contribution** terms in both card lists and drawers.
 
-  <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+### 3. Lockdown Deletions (Secure Admin Mode) (`app.js`)
 
-  <!-- Part 3 -->
-  <h2 style="color: #38bdf8; font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-top: 24px; margin-bottom: 12px; font-weight: 700; border-left: 4px solid #38bdf8; padding-left: 10px;">Part 3: PWA & Offline Mobile Integration</h2>
+> [!IMPORTANT]
+> * **Admin Verification**: Configured a query parser (`?admin=true`) to enable administrator features.
+> * **Lock Deletes**: Restricted deletion database calls (`deleteTerm()`) and hid deletion trash cans from cards unless the user is confirmed as admin.
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">1. Manifest Assets & Browser Verification (<code style="color: #22d3ee;">manifest.json</code> & <code style="color: #22d3ee;">sw.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">PWA configuration:</strong> Configured start URLs, standalone display modes, orientation support, and theme/background parameters.</li>
-    <li><strong style="color: #f8fafc;">Qualifying for Chrome native installer:</strong> Generated standard high-quality **<code>icon-192.png</code>** and **<code>icon-512.png</code>** files from <code>icon.svg</code> and registered them inside the manifest icons array to meet Chrome's mobile install prompt criteria.</li>
-    <li><strong style="color: #f8fafc;">Service worker caching:</strong> Configured <code>sw.js</code> to pre-cache frontend files, stylesheets, and the new PNG icons, allowing offline loads. Advanced version caching to clear client caches.</li>
-  </ul>
+### 4. Cron-styled Submissions Moderation Panel (`index.html` & `app.js`)
+* **Admin Dashboard modal**: Added a moderation panel overlay (`#admin-modal`) and header link button (`#btn-admin-panel`) visible only to administrators.
+* **Chronological grouping logic**: Developed sorting filters grouping contributions into:
+  * 🔴 **Added Today**
+  * 🟡 **Added This Week (Last 7 Days)**
+  * 🔵 **Added Earlier**
+* **Panel Actions**: Linked "View" (opens term detail drawer) and "Delete" (purges the term instantly from Firebase) buttons next to each submission row.
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">2. Custom Install UI Dropdown (<code style="color: #22d3ee;">index.html</code> & <code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Download dropdown wrapper:</strong> Created a header button (<code>#btn-download-dropdown</code>) toggle trigger expanding an options panel (Download App, User Manual).</li>
-  </ul>
+---
 
-  <h3 style="color: #cbd5e1; font-size: 1.1rem; font-weight: 600; margin-top: 16px; margin-bottom: 8px;">3. Custom Installation Guide Modal (<code style="color: #22d3ee;">index.html</code> & <code style="color: #22d3ee;">app.js</code>)</h3>
-  <ul style="padding-left: 20px; color: #cbd5e1; margin-bottom: 16px;">
-    <li><strong style="color: #f8fafc;">Visual Help Modal Structure:</strong> Created <code>#install-guide-modal</code> containing SVG graphic mockups and guides.</li>
-  </ul>
+## Part 3: PWA & Offline Mobile Integration
 
-  <!-- Visual popup details matching website layout -->
-  <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px;">
-    <h4 style="color: #cbd5e1; font-size: 1.05rem; margin-top: 0; margin-bottom: 12px; font-weight: 600; text-decoration: underline;">Visual Popup Content Specifications:</h4>
-    
-    <div style="text-align: center; margin-bottom: 15px;">
-      <img src="./install_popup_guide.png" alt="Installation Guide Popup" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #475569;" />
-    </div>
+### 1. Manifest Assets & Browser Verification (`manifest.json` & `sw.js`)
+* **PWA configuration**: Configured start URLs, standalone display modes, orientation support, and theme/background parameters.
+* **Qualifying for Chrome native installer**: Generated standard high-quality **`icon-192.png`** and **`icon-512.png`** files from `icon.svg` and registered them inside the manifest icons array to meet Chrome's mobile install prompt criteria.
+* **Service worker caching**: Configured `sw.js` to pre-cache frontend files, stylesheets, and the new PNG icons, allowing offline loads. Advanced version caching to clear client caches.
 
-    <ul style="color: #cbd5e1; font-size: 0.9rem; padding-left: 20px;">
-      <li style="margin-bottom: 8px;"><strong>Method A (Desktop Installation):</strong>
-        <ul style="padding-left: 20px; margin-top: 4px;">
-          <li>1. Click the Install Monitor icon on the right side of the address bar.</li>
-          <li>2. Or click the three dots (⋮) ➔ Cast, save, and share ➔ Install Geospatial Dictionary...</li>
-        </ul>
-      </li>
-      <li style="margin-bottom: 8px;"><strong>Method B (Mobile Android Menu):</strong>
-        <ul style="padding-left: 20px; margin-top: 4px;">
-          <li>Mobile address bars do not show install icons. Tap the three vertical dots (⋮) in Chrome, select Install (or Install and create shortcut), then select Install.</li>
-        </ul>
-      </li>
-      <li style="margin-bottom: 8px;"><strong>Method C (iPhone iOS Safari):</strong>
-        <ul style="padding-left: 20px; margin-top: 4px;">
-          <li>Open Safari, tap the Share sheet button (box with up arrow), and select Add to Home Screen.</li>
-        </ul>
-      </li>
-    </ul>
+### 2. Custom Install UI Dropdown (`index.html` & `app.js`)
+* **Download dropdown wrapper**: Created a header button (`#btn-download-dropdown`) toggle trigger expanding a clean options panel (Download App, User Manual).
 
-    <!-- App Install vs Web Shortcut Comparison -->
-    <div style="border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px; background: rgba(255, 255, 255, 0.04); margin-top: 15px; margin-bottom: 15px;">
-      <strong style="color: #ffffff; display: block; margin-bottom: 6px; font-size: 0.9rem;">App Install vs. Web Shortcut Rules:</strong>
-      <ul style="margin: 0; padding-left: 20px; color: #cbd5e1; font-size: 0.85rem;">
-        <li style="margin-bottom: 4px;"><strong>Install (App):</strong> Downloads PWA files directly. Opens in its own window (no tabs) and works offline. To delete, press and hold and select Uninstall.</li>
-        <li><strong>Create Shortcut:</strong> Places a link on your screen. Accesses the site without installing files. To delete, press and hold and select Remove.</li>
-      </ul>
-    </div>
+### 3. Custom Installation Guide Modal (`index.html` & `app.js`)
+* **Visual Help Modal Structure**: Created `#install-guide-modal` containing SVG graphic mockups and guides.
 
-    <!-- How to Remove or Uninstall -->
-    <div style="border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 12px; background: rgba(239, 68, 68, 0.02); margin-top: 10px;">
-      <strong style="color: #ef4444; display: block; margin-bottom: 6px; font-size: 0.9rem;">How to Remove or Uninstall from Phone Rules:</strong>
-      <ul style="margin: 0; padding-left: 20px; color: #fca5a5; font-size: 0.85rem;">
-        <li style="margin-bottom: 4px;"><strong>If you chose 'Install':</strong> Press and hold the icon on your home screen and select Uninstall.</li>
-        <li><strong>If you chose 'Create shortcut':</strong> Press and hold the icon and select Remove (or drag to the 'Remove' trash can at the top).</li>
-      </ul>
-    </div>
-  </div>
+### Visual popup details matching website layout:
 
-</div>
+![Installation Guide Popup](./install_popup_guide.png)
+
+* > [!NOTE]
+  > **Method A (Desktop Installation)**:
+  > 1. Click the Install Monitor icon on the right side of the address bar.
+  > 2. Or click the three dots (⋮) ➔ Cast, save, and share ➔ Install Geospatial Dictionary...
+* > [!TIP]
+  > **Method B (Mobile Android Menu)**:
+  > Mobile address bars do not show install icons. Tap the three vertical dots (⋮) in Chrome, select Install (or Install and create shortcut), then select Install.
+* > [!WARNING]
+  > **Method C (iPhone iOS Safari)**:
+  > Open Safari, tap the Share sheet button (box with up arrow), and select Add to Home Screen.
+
+### App Install vs. Web Shortcut (Android Chrome Details):
+
+> [!IMPORTANT]
+> When installing on mobile, you can choose between two methods:
+> * **Install (App)**: Downloads PWA files directly. Opens in its own window (no tabs) and works offline. To delete, press and hold and select **Uninstall**.
+> * **Create Shortcut**: Places a link on your screen. Accesses the site without installing files. To delete, press and hold and select **Remove**.
+
+### How to Remove or Uninstall from Phone:
+
+> [!CAUTION]
+> If you ever want to delete the icon from your phone:
+> * **If you chose 'Install'**: Press and hold the icon on your home screen and select **Uninstall**.
+> * **If you chose 'Create shortcut'**: Press and hold the icon and select **Remove** (or drag to the 'Remove' trash can at the top).
