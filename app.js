@@ -3114,6 +3114,34 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (adminBtn) adminBtn.style.display = 'inline-flex';
   }
 
+  // Handle PWA installation prompt inside UI
+  let deferredPrompt = null;
+  const installBtn = document.getElementById('btn-install-pwa');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) {
+      installBtn.style.display = 'inline-flex';
+    }
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to PWA install prompt: ${outcome}`);
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA installed successfully.');
+    if (installBtn) installBtn.style.display = 'none';
+  });
+
   // Close modals clicking outside container
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
