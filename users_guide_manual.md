@@ -1,6 +1,12 @@
 # Geospatial Dictionary: User Guide & Manual
 
-Welcome to the **Geospatial Dictionary**! This guide explains how to search for terms, contribute new definitions, and install the app on your devices.
+Welcome to the **Geospatial Dictionary**! This guide explains how to search for terms, contribute new definitions, install the app, and remove it from your devices.
+
+---
+
+## 🌐 Live Website & PWA URL
+* **Live Website**: [https://harimss-webgis.github.io/Geospatial-Dictionary/](https://harimss-webgis.github.io/Geospatial-Dictionary/)
+* **PWA App URL**: Same as above! (Open this link in your browser to run the app or trigger installation).
 
 ---
 
@@ -51,9 +57,18 @@ While the auto-fill feature is fast, automatic search definitions can sometimes 
 
 ---
 
-## 4. How to Download and Install the App (PWA)
-To run this dictionary as a native app on your computer, Android phone, or iPhone:
-1. Click the **`Download`** button at the top header.
-2. Select **`Download App`**.
-3. A visual helper popup will open displaying custom steps for your specific device (**Desktop**, **Android Chrome**, or **iPhone Safari**).
-4. **Offline Capability**: Once installed, the app stores all glossary cards in your phone's storage. You can open and search the dictionary even when you have **no internet connection (completely offline)**!
+## 4. How to Install & Uninstall the App (PWA)
+
+### How to Download & Install:
+1. Open the website: [https://harimss-webgis.github.io/Geospatial-Dictionary/](https://harimss-webgis.github.io/Geospatial-Dictionary/)
+2. Click the **`Download`** button at the top header and select **`Download App`**.
+3. Choose the guide for your device in the popup window:
+   * 🔵 **Desktop (Chrome/Edge)**: Click the **Install Monitor icon** on the right side of the address bar, OR click the Chrome settings menu (3 dots) and select **"Save and share" ➔ "Install App"**.
+   * 🟢 **Android Mobile**: Tap Chrome's top-right three vertical dots (⋮) and select **"Install app"** (or **"Install"**). Tap **"Install"** on the popup (do not choose "Create shortcut" if you want the full app experience).
+   * 🟡 **iOS / iPhone Safari**: Open the link in **Safari**, tap the **Share** button (square with an up arrow) at the bottom, and select **"Add to Home Screen"**.
+4. **Offline Capability**: Once installed, the app works fully **offline** without any internet connection!
+
+### How to Remove or Uninstall:
+If you ever want to delete the icon from your phone or computer:
+* **If you chose 'Install' (PWA App)**: Press and hold the app icon on your home screen and select **"Uninstall"** (or uninstall from your phone's App Settings list).
+* **If you chose 'Create shortcut' (Web Link)**: Press and hold the icon on your home screen and select **"Remove"** (or drag it to the 'Remove' trash can at the top). This removes the shortcut instantly without affecting Chrome.
