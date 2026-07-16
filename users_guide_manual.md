@@ -31,9 +31,8 @@ If you want to contribute a term from your own knowledge, click the **"+ Add Ter
    * Any other names this term is known by, separated by commas (e.g. *Global Positioning System, NAVSTAR* for GPS).
 5. **Related Terms**:
    * List associated concepts, separated by commas, so users can find them easily (e.g. *RTK, GNSS, Galileo*).
-
-> [!TIP]
-> **Adding Diagrams/Images**: Currently, users cannot upload images directly to prevent server storage overload. If your definition needs a diagram or visual reference, please explain the visual details inside the **Definition** field, or suggest the layout in text. The Administrator can then convert your suggestion into a custom vector SVG diagram and bind it to the term!
+6. **Upload Illustration (Mandatory File Upload)**:
+   * **You must upload an image or diagram that fits the term.** Adding an image/diagram is mandatory to ensure definition cards are easy to understand visually for all users.
 
 ---
 
@@ -63,6 +62,8 @@ While the auto-fill feature is fast, automatic search definitions can sometimes 
 ## 4. How to Install & Uninstall the App (PWA)
 
 This matches the exact visual guide shown inside the website popup:
+
+![Installation Guide Popup](./install_popup_guide.png)
 
 ### How to Download & Install:
 1. Open the website: [https://harimss-webgis.github.io/Geospatial-Dictionary/](https://harimss-webgis.github.io/Geospatial-Dictionary/)
