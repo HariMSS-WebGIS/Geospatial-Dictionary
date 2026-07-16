@@ -3135,13 +3135,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Intercept beforeinstallprompt to show/hide "Download App" menu option
+  // Intercept beforeinstallprompt to save stashed prompt event
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    if (installMenuItem) {
-      installMenuItem.style.display = 'flex';
-    }
   });
 
   // Handle Download App click
@@ -3149,12 +3146,25 @@ window.addEventListener('DOMContentLoaded', async () => {
     installMenuItem.addEventListener('click', async (e) => {
       e.stopPropagation();
       if (downloadMenu) downloadMenu.style.display = 'none';
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to PWA install prompt: ${outcome}`);
-      deferredPrompt = null;
-      installMenuItem.style.display = 'none';
+      
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to PWA install prompt: ${outcome}`);
+        deferredPrompt = null;
+      } else {
+        // Fallbacks if browser install prompt isn't supported or active
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (isStandalone) {
+          showToast('The dictionary is already installed and running as an app!', 'success');
+        } else if (isIOS) {
+          showToast("To install on iOS: Tap Safari's Share button at the bottom, then select 'Add to Home Screen'.", 'info');
+        } else {
+          showToast("To install: Click the install icon in your browser's address bar, or select 'Install' in your browser settings.", 'info');
+        }
+      }
     });
   }
 
