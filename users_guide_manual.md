@@ -32,6 +32,9 @@ If you want to contribute a term from your own knowledge, click the **"+ Add Ter
 5. **Related Terms**:
    * List associated concepts, separated by commas, so users can find them easily (e.g. *RTK, GNSS, Galileo*).
 
+> [!TIP]
+> **Adding Diagrams/Images**: Currently, users cannot upload images directly to prevent server storage overload. If your definition needs a diagram or visual reference, please explain the visual details inside the **Definition** field, or suggest the layout in text. The Administrator can then convert your suggestion into a custom vector SVG diagram and bind it to the term!
+
 ---
 
 ## 3. Using "Auto-Fill" (Google / Wikipedia Lookup)
@@ -59,16 +62,27 @@ While the auto-fill feature is fast, automatic search definitions can sometimes 
 
 ## 4. How to Install & Uninstall the App (PWA)
 
+This matches the exact visual guide shown inside the website popup:
+
 ### How to Download & Install:
 1. Open the website: [https://harimss-webgis.github.io/Geospatial-Dictionary/](https://harimss-webgis.github.io/Geospatial-Dictionary/)
 2. Click the **`Download`** button at the top header and select **`Download App`**.
-3. Choose the guide for your device in the popup window:
-   * 🔵 **Desktop (Chrome/Edge)**: Click the **Install Monitor icon** on the right side of the address bar, OR click the Chrome settings menu (3 dots) and select **"Save and share" ➔ "Install App"**.
-   * 🟢 **Android Mobile**: Tap Chrome's top-right three vertical dots (⋮) and select **"Install app"** (or **"Install"**). Tap **"Install"** on the popup (do not choose "Create shortcut" if you want the full app experience).
-   * 🟡 **iOS / iPhone Safari**: Open the link in **Safari**, tap the **Share** button (square with an up arrow) at the bottom, and select **"Add to Home Screen"**.
+3. Choose the guide for your device:
+   * 🔵 **Method A (Desktop Installation)**:
+     1. Click the **Install Monitor icon** on the right side of the address bar.
+     2. Or click the **three dots (⋮)** ➔ **Cast, save, and share** ➔ **Install Geospatial Dictionary...**
+   * 🟢 **Method B (Mobile Android Menu)**:
+     * Mobile address bars do not show install icons. Tap the **three vertical dots (⋮)** in Chrome, select **Install** (or **Install and create shortcut**), then select **Install**.
+   * 🟡 **Method C (iPhone iOS Safari)**:
+     * Open Safari, tap the **Share sheet button** (box with up arrow), and select **Add to Home Screen**.
 4. **Offline Capability**: Once installed, the app works fully **offline** without any internet connection!
 
-### How to Remove or Uninstall:
-If you ever want to delete the icon from your phone or computer:
-* **If you chose 'Install' (PWA App)**: Press and hold the app icon on your home screen and select **"Uninstall"** (or uninstall from your phone's App Settings list).
-* **If you chose 'Create shortcut' (Web Link)**: Press and hold the icon on your home screen and select **"Remove"** (or drag it to the 'Remove' trash can at the top). This removes the shortcut instantly without affecting Chrome.
+### App Install vs. Web Shortcut (Android Chrome Details):
+When installing on mobile, you can choose between two methods:
+* **Install (App)**: Downloads the PWA files directly. It lets you open the dictionary in its own clean window (no browser tabs) and works fully offline. To delete it, press and hold the icon and select **Uninstall**.
+* **Create Shortcut**: Places a browser link on your home screen. This lets you access the PWA quickly **without installing any files** on your phone. To delete it, press and hold the icon and select **Remove**.
+
+### How to Remove or Uninstall from Phone:
+If you ever want to delete the icon from your phone:
+* **If you chose 'Install'**: Press and hold the icon on your home screen and select **Uninstall**.
+* **If you chose 'Create shortcut'**: Press and hold the icon on your home screen and select **Remove** (or drag it to the 'Remove' trash can at the top).
