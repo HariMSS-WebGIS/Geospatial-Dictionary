@@ -1663,7 +1663,7 @@ function getAllTerms() {
 }
 
 // Toast Notifications Helper
-function showToast(message, type = 'success') {
+function showToast(message, type = 'success', duration = 3000) {
   const container = document.getElementById('toast-container');
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
@@ -1678,7 +1678,7 @@ function showToast(message, type = 'success') {
   setTimeout(() => {
     toast.style.animation = 'slide-in 0.3s ease reverse forwards';
     setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  }, duration);
 }
 
 // Render Term Cards
@@ -3160,9 +3160,9 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (isStandalone) {
           showToast('The dictionary is already installed and running as an app!', 'success');
         } else if (isIOS) {
-          showToast("To install on iOS: Tap Safari's Share button at the bottom, then select 'Add to Home Screen'.", 'info');
+          showToast("To install on iOS: Tap Safari's Share button at the bottom, then select 'Add to Home Screen'.", 'info', 5000);
         } else {
-          showToast("To install: Click the install icon in your browser's address bar, or select 'Install' in your browser settings.", 'info');
+          showToast("To install: Click the install icon in your browser's address bar, or select 'Install' in your browser settings.", 'info', 5000);
         }
       }
     });
