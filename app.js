@@ -3108,10 +3108,22 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('term-form').addEventListener('submit', handleFormSubmit);
 
+  // Show Moderation panel button if administrator
+  if (state.isAdmin) {
+    const adminBtn = document.getElementById('btn-admin-panel');
+    if (adminBtn) adminBtn.style.display = 'inline-flex';
+  }
+
   // Close modals clicking outside container
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeModal();
+      if (e.target === overlay) {
+        if (overlay.id === 'admin-modal') {
+          closeAdminPanel();
+        } else {
+          closeModal();
+        }
+      }
     });
   });
 
@@ -3120,6 +3132,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (e.key === 'Escape') {
       closeModal();
       closeDetailPanel();
+      closeAdminPanel();
     }
   });
 });
@@ -3133,4 +3146,106 @@ function toggleTheme() {
   body.setAttribute('data-theme', newTheme);
   localStorage.setItem('gis_dict_theme', newTheme);
   showToast(`Switched to ${newTheme} mode.`);
+}
+
+// Admin Moderation Panel actions
+function openAdminPanel() {
+  const modal = document.getElementById('admin-modal');
+  if (modal) {
+    modal.classList.add('active');
+    renderAdminPanel();
+  }
+}
+
+function closeAdminPanel() {
+  const modal = document.getElementById('admin-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+async function renderAdminPanel() {
+  const custom = await getCustomTerms();
+  
+  const listToday = document.getElementById('admin-list-today');
+  const listWeek = document.getElementById('admin-list-week');
+  const listEarlier = document.getElementById('admin-list-earlier');
+
+  if (!listToday || !listWeek || !listEarlier) return;
+
+  listToday.innerHTML = '';
+  listWeek.innerHTML = '';
+  listEarlier.innerHTML = '';
+
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  // Filter only custom terms that have creator metadata
+  const customSorted = [...custom].sort((a, b) => {
+    const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return timeB - timeA; // Descending (newest first)
+  });
+
+  let counts = { today: 0, week: 0, earlier: 0 };
+
+  customSorted.forEach(item => {
+    const createdDate = item.createdAt ? new Date(item.createdAt) : new Date(0);
+    const dateStr = createdDate.toLocaleString();
+
+    const row = document.createElement('div');
+    row.className = 'admin-term-row';
+    row.style.cssText = 'display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem; border: 1px solid var(--panel-border); border-radius: 8px; margin-bottom: 0.5rem; background: rgba(255,255,255,0.02);';
+    row.innerHTML = `
+      <div style="flex: 1; margin-right: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+          <strong style="color: var(--text-primary); font-size: 0.9rem;">${escapeHtml(item.term)}</strong>
+          <span class="term-badge ${item.createdBy === 'guest' ? 'guest-contrib' : 'admin-contrib'}" style="font-size: 0.6rem; padding: 0.1rem 0.35rem;">${item.createdBy === 'guest' ? 'Guest' : 'Admin'}</span>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.3;">${escapeHtml(item.definition)}</div>
+        <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem;">Added on: ${dateStr}</div>
+      </div>
+      <div style="display: flex; gap: 0.4rem;">
+        <button class="btn-secondary" onclick="adminPreviewTerm('${item.id}')" style="font-size: 0.7rem; padding: 0.25rem 0.5rem; min-width: auto; height: auto;">View</button>
+        <button class="btn-primary" onclick="adminDeleteTerm('${item.id}')" style="font-size: 0.7rem; padding: 0.25rem 0.5rem; background: #ef4444; border-color: #ef4444; min-width: auto; height: auto;">Delete</button>
+      </div>
+    `;
+
+    if (createdDate >= startOfToday) {
+      listToday.appendChild(row);
+      counts.today++;
+    } else if (createdDate >= oneWeekAgo) {
+      listWeek.appendChild(row);
+      counts.week++;
+    } else {
+      listEarlier.appendChild(row);
+      counts.earlier++;
+    }
+  });
+
+  if (counts.today === 0) {
+    listToday.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 0.5rem;">No new terms added today.</div>';
+  }
+  if (counts.week === 0) {
+    listWeek.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 0.5rem;">No new terms added this week.</div>';
+  }
+  if (counts.earlier === 0) {
+    listEarlier.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 0.5rem;">No older custom terms.</div>';
+  }
+}
+
+function adminPreviewTerm(termId) {
+  closeAdminPanel();
+  showTermDetail(termId);
+}
+
+async function adminDeleteTerm(termId) {
+  if (confirm('Are you sure you want to delete this custom term?')) {
+    let custom = await getCustomTerms();
+    custom = custom.filter(t => t.id !== termId);
+    state.customTerms = custom;
+    await saveCustomTerms(custom);
+    showToast('Term deleted successfully.');
+    renderAdminPanel();
+    renderTermsList();
+  }
 }

@@ -57,6 +57,14 @@
         </svg>
       </button>
       
+      <!-- Admin Panel Button (Visible to admin only) -->
+      <button class="btn-secondary" id="btn-admin-panel" onclick="openAdminPanel()" style="display: none; border-color: var(--accent-cyan); color: var(--accent-cyan); margin-right: 0.5rem; gap: 0.35rem; align-items: center;">
+        <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <span>Moderation Panel</span>
+      </button>
+
       <!-- Add Term Button -->
       <button class="btn-primary" onclick="openAddModal()" title="Add Custom Term">
         <svg viewBox="0 0 24 24">
@@ -289,6 +297,49 @@
           <button type="submit" class="btn-primary">Save Term</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Admin Moderation Modal -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="modal-container" style="max-width: 750px; max-height: 85vh;" role="dialog" aria-labelledby="admin-modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="admin-modal-title">Submissions Moderation Panel</h3>
+        <button class="close-btn" onclick="closeAdminPanel()" title="Close Panel" aria-label="Close Panel">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; overflow-y: auto;">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Review newly added and edited terms sorted by addition date. You can instantly approve or delete them below.
+        </p>
+        
+        <div class="admin-group-section">
+          <h4 style="color: #ef4444; border-bottom: 1px solid rgba(239,68,68,0.2); padding-bottom: 0.35rem; margin-bottom: 0.75rem; font-size: 0.95rem;">Added Today</h4>
+          <div id="admin-list-today" class="admin-term-list">
+            <!-- Dynamic elements loaded by JS -->
+          </div>
+        </div>
+
+        <div class="admin-group-section" style="margin-top: 1.5rem;">
+          <h4 style="color: #f59e0b; border-bottom: 1px solid rgba(245,158,11,0.2); padding-bottom: 0.35rem; margin-bottom: 0.75rem; font-size: 0.95rem;">Added This Week (Last 7 Days)</h4>
+          <div id="admin-list-week" class="admin-term-list">
+            <!-- Dynamic elements loaded by JS -->
+          </div>
+        </div>
+
+        <div class="admin-group-section" style="margin-top: 1.5rem;">
+          <h4 style="color: #3b82f6; border-bottom: 1px solid rgba(59,130,246,0.2); padding-bottom: 0.35rem; margin-bottom: 0.75rem; font-size: 0.95rem;">Added Earlier</h4>
+          <div id="admin-list-earlier" class="admin-term-list">
+            <!-- Dynamic elements loaded by JS -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeAdminPanel()">Close Panel</button>
+      </div>
     </div>
   </div>
 
