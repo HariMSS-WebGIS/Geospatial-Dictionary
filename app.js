@@ -3153,16 +3153,12 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.log(`User response to PWA install prompt: ${outcome}`);
         deferredPrompt = null;
       } else {
-        // Fallbacks if browser install prompt isn't supported or active
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
         if (isStandalone) {
           showToast('The dictionary is already installed and running as an app!', 'success');
-        } else if (isIOS) {
-          showToast("To install on iOS: Tap Safari's Share button at the bottom, then select 'Add to Home Screen'.", 'info', 5000);
         } else {
-          showToast("To install: Click the install icon in your browser's address bar, or select 'Install' in your browser settings.", 'info', 5000);
+          // Open our beautiful pictorial installation guide modal
+          openInstallGuide();
         }
       }
     });
@@ -3188,6 +3184,8 @@ window.addEventListener('DOMContentLoaded', async () => {
       if (e.target === overlay) {
         if (overlay.id === 'admin-modal') {
           closeAdminPanel();
+        } else if (overlay.id === 'install-guide-modal') {
+          closeInstallGuide();
         } else {
           closeModal();
         }
@@ -3201,6 +3199,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       closeModal();
       closeDetailPanel();
       closeAdminPanel();
+      closeInstallGuide();
     }
   });
 });
@@ -3316,4 +3315,15 @@ async function adminDeleteTerm(termId) {
     renderAdminPanel();
     renderTermsList();
   }
+}
+
+// Visual Installation Guide Modal helpers
+function openInstallGuide() {
+  const modal = document.getElementById('install-guide-modal');
+  if (modal) modal.classList.add('active');
+}
+
+function closeInstallGuide() {
+  const modal = document.getElementById('install-guide-modal');
+  if (modal) modal.classList.remove('active');
 }

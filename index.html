@@ -371,6 +371,99 @@
     </div>
   </div>
 
+  <!-- Visual PWA Installation Guide Modal -->
+  <div class="modal-overlay" id="install-guide-modal">
+    <div class="modal-container" style="max-width: 550px;" role="dialog" aria-labelledby="guide-modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="guide-modal-title">How to Install the App</h3>
+        <button class="close-btn" onclick="closeInstallGuide()" title="Close Guide" aria-label="Close Guide">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.25rem;">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.25rem;">
+          To install this dictionary as a native app on your desktop or mobile home screen, follow one of the methods below:
+        </p>
+
+        <!-- Method 1: Address Bar Icon -->
+        <div style="border: 1px solid var(--panel-border); border-radius: 12px; padding: 1rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span style="background: rgba(6, 182, 212, 0.1); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem;">Method A</span>
+            Desktop Address Bar Icon
+          </h4>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="flex: 1; font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Look at the right side of your browser's address bar. Click the <strong>Install Monitor icon</strong> next to the bookmark star.
+            </div>
+            <div style="width: 130px; height: 70px; background: rgba(0,0,0,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--panel-border);">
+              <svg viewBox="0 0 160 80" width="100%" height="100%">
+                <rect x="5" y="25" width="150" height="30" rx="15" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+                <text x="15" y="44" fill="#64748b" font-size="7">harimss-webgis.github...</text>
+                <g transform="translate(132, 30)">
+                  <circle cx="8" cy="8" r="10" fill="rgba(6, 182, 212, 0.15)" stroke="var(--accent-cyan)" stroke-width="1"/>
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" fill="var(--accent-cyan)" transform="scale(0.6) translate(3, 3)"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Method 2: Browser Settings Menu -->
+        <div style="border: 1px solid var(--panel-border); border-radius: 12px; padding: 1rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span style="background: rgba(6, 182, 212, 0.1); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem;">Method B</span>
+            Browser Menu (3 Dots)
+          </h4>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="flex: 1; font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Click the <strong>three vertical dots (⋮)</strong> at the very top-right of your Chrome window, then select <strong>Save and share</strong> &rarr; <strong>Install App</strong>.
+            </div>
+            <div style="width: 130px; height: 70px; background: rgba(0,0,0,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--panel-border);">
+              <svg viewBox="0 0 160 80" width="100%" height="100%">
+                <circle cx="140" cy="20" r="2" fill="#f8fafc"/>
+                <circle cx="140" cy="26" r="2" fill="#f8fafc"/>
+                <circle cx="140" cy="32" r="2" fill="#f8fafc"/>
+                <path d="M 130 26 L 105 26" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+                <polygon points="105,23 99,26 105,29" fill="#ef4444"/>
+                <text x="80" y="30" fill="#ef4444" font-size="7" font-weight="bold">Click Menu</text>
+                <rect x="15" y="44" width="110" height="28" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+                <text x="22" y="54" fill="#f8fafc" font-size="6">Save and share  &rarr;</text>
+                <text x="22" y="64" fill="var(--accent-cyan)" font-size="6" font-weight="bold">Install App...</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Method 3: Mobile iOS Safari -->
+        <div style="border: 1px solid var(--panel-border); border-radius: 12px; padding: 1rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span style="background: rgba(6, 182, 212, 0.1); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem;">Method C</span>
+            iPhone iOS (Safari)
+          </h4>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="flex: 1; font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Open Safari, tap the <strong>Share sheet button</strong> (box with up arrow), and select <strong>Add to Home Screen</strong>.
+            </div>
+            <div style="width: 130px; height: 70px; background: rgba(0,0,0,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--panel-border);">
+              <svg viewBox="0 0 160 80" width="100%" height="100%">
+                <g transform="translate(80, 25)">
+                  <rect x="-8" y="-2" width="16" height="16" fill="none" stroke="var(--accent-cyan)" stroke-width="1.5"/>
+                  <path d="M 0 8 L 0 -8 M -4 -4 L 0 -8 L 4 -4" fill="none" stroke="var(--accent-cyan)" stroke-width="1.5"/>
+                </g>
+                <text x="80" y="60" fill="#f8fafc" font-size="7" text-anchor="middle">Add to Home Screen</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" onclick="closeInstallGuide()">Got It</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Alert System -->
   <div id="toast-container" class="toast-container"></div>
 
