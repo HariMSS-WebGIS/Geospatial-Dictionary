@@ -3126,10 +3126,22 @@ window.addEventListener('DOMContentLoaded', async () => {
   const installMenuItem = document.getElementById('menu-install-pwa');
   const manualMenuItem = document.getElementById('menu-user-manual');
 
-  // Hide "Download App" option if already running in PWA (standalone) mode
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  // Hide "Download App" option if already running in PWA (standalone, minimal-ui, fullscreen) mode
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                       window.matchMedia('(display-mode: minimal-ui)').matches || 
+                       window.matchMedia('(display-mode: fullscreen)').matches || 
+                       window.navigator.standalone;
   if (isStandalone && installMenuItem) {
     installMenuItem.style.display = 'none';
+  }
+
+  // Also check if PWA is already installed in the system registry (for Chrome/Edge on Desktop and Android)
+  if (installMenuItem && 'getInstalledRelatedApps' in navigator) {
+    navigator.getInstalledRelatedApps().then((apps) => {
+      if (apps && apps.length > 0) {
+        installMenuItem.style.display = 'none';
+      }
+    }).catch((err) => console.log('Error checking installed related apps:', err));
   }
 
   // Toggle dropdown on trigger click
