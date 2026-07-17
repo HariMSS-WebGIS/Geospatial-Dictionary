@@ -992,6 +992,23 @@ textarea.form-control {
     padding: 1rem;
     text-align: center;
   }
+  .search-input {
+    font-size: 16px; /* Prevents automatic page zoom on focus */
+  }
+  .suggestion-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.75rem 1rem;
+  }
+  .suggestion-category {
+    align-self: flex-start;
+  }
+  .suggestion-aliases {
+    margin-left: 0;
+    display: block;
+    margin-top: 0.15rem;
+  }
 }
 
 /* Online Search Banner Styles */
