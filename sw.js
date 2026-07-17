@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gis-webgis-dict-v34';
+const CACHE_NAME = 'gis-webgis-dict-v35';
 const ASSETS = [
   './',
   './index.html',
