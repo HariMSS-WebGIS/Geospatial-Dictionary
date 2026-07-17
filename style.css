@@ -957,7 +957,7 @@ textarea.form-control {
     z-index: 500;
     height: 75vh;
     border-radius: 20px 20px 0 0;
-    transform: translateY(100%);
+    transform: translateY(0);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .detail-panel.collapsed {
