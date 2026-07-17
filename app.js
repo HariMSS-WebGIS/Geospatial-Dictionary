@@ -3126,6 +3126,12 @@ window.addEventListener('DOMContentLoaded', async () => {
   const installMenuItem = document.getElementById('menu-install-pwa');
   const manualMenuItem = document.getElementById('menu-user-manual');
 
+  // Hide "Download App" option if already running in PWA (standalone) mode
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if (isStandalone && installMenuItem) {
+    installMenuItem.style.display = 'none';
+  }
+
   // Toggle dropdown on trigger click
   if (downloadTrigger && downloadMenu) {
     downloadTrigger.addEventListener('click', (e) => {
